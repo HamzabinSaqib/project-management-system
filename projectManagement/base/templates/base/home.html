@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1> HOME PAGE </h1>
+
+<div>
+    <div>
+        {% for project in projects %}
+        
+        <div>
+            <h3>    
+                {{project.id}} -- <a href="{% url 'project' project.id %}"> {{project.name}} </a>
+            </h3>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

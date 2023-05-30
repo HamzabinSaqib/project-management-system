@@ -21,11 +21,14 @@ class Migration(migrations.Migration):
                 ('assigneeName', models.CharField(max_length=25)),
             ],
         ),
+<<<<<<< HEAD
+=======
         migrations.AddField(
             model_name='project',
             name='manager',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
         ),
+>>>>>>> 29834dd591b7027e3ab0e7be94d3710ee95794b7
         migrations.CreateModel(
             name='Task',
             fields=[

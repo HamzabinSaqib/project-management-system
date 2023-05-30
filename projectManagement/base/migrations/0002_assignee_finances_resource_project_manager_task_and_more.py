@@ -21,18 +21,6 @@ class Migration(migrations.Migration):
                 ('assigneeName', models.CharField(max_length=25)),
             ],
         ),
-        migrations.CreateModel(
-            name='Finances',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Resource',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
         migrations.AddField(
             model_name='project',
             name='manager',

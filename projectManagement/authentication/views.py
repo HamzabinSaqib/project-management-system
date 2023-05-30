@@ -3,34 +3,34 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
-def home(req):
-    return render(req, 'authentication/home.html')
+def home(request):
+    return render(request, 'authentication/home.html')
 
-def login_view(req):
-    if req.method == 'POST':
-        username = req.POST['username']
-        password = req.POST['password']
-        user = authenticate(req, username=username, password=password)
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(req, user)
+            login(request, user)
             return redirect('base:home')
         else:
-            messages.error(req, 'Invalid Username or Password')
-    return render(req, 'authentication/login.html')
+            messages.error(request, 'Invalid Username or Password')
+    return render(request, 'authentication/login.html')
 
-def logout_view(req):
-    logout(req)
+def logout_view(request):
+    logout(request)
     return redirect('authentication:home')
 
-def sign_up(req):
-    if req.method == 'POST':
-        form = UserCreationForm(req.POST)
+def sign_up(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(req, 'Account created successfully. You can now log in.')
+            messages.success(request, 'Account created successfully. You can now log in.')
             return redirect('authentication:login')
     else:
         form = UserCreationForm()
     
     context = {'form': form}
-    return render(req, 'authentication/sign_up.html', context)
+    return render(request, 'authentication/sign_up.html', context)

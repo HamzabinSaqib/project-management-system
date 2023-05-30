@@ -15,7 +15,7 @@ def project(request, pk):
     context = {'project': project}
     return render(request, 'base/project.html', context)
 
-
+@login_required(login_url='authentication:login')
 def create_project(request):
     form = CreateProjectForm()
     if request.method == "POST":

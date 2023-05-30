@@ -85,7 +85,23 @@ class Assignment(models.Model):
         return self.assignID
 
 class Resource(models.Model):
-    pass
+    """Resource Model"""
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    ResourceID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    availableHours = models.IntegerField(default=0, null=True, blank=True)
+    plannedEffort = models.IntegerField(default=0, blank=True, null=True)
+    actualEffort = models.IntegerField(default=0, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Resource -> {self.project.projName}"
 
 class Finances(models.Model):
-    pass
+    """Financial Model"""
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    financeID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    revenue = models.IntegerField(default=0, null=True, blank=True);
+    cost = models.IntegerField(default=0, null=True, blank=True);
+    margin = models.IntegerField(default=0, null=True, blank=True);
+    
+    def __str__(self):
+        return f"Finances -> {self.project.projName}"

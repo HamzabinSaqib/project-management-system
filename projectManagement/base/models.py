@@ -1,15 +1,19 @@
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
 from datetime import datetime
+from django.contrib.auth import get_user_model
 import uuid
 
 # Create your models here.
 
+class User(AbstractUser):
+    pass
+
 class Project(models.Model):
     """Project Model"""
-    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    manager = models.ForeignKey("Manager", on_delete=models.CASCADE)
     projID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     projName = models.CharField(max_length=50)
     projDesc = models.TextField(null=True, blank=True)
@@ -89,3 +93,6 @@ class Resource(models.Model):
 
 class Finances(models.Model):
     pass
+
+class Manager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)

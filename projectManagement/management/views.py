@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from base.models import Project, Task, Finances, Assignee, Assignment, Resource
-from base.forms import ProjectForms
+from base.forms import ManageProjectForm
 # Create your views here.
 
 def manage_project(request, pk): #(request, project_id)
   project = Project.objects.get(id=pk)
-  form = ProjectForms(instance=project)
+  form = ManageProjectForm(instance=project)
   if request.method == "POST":
-    form = ProjectForms(request.POST)
+    form = ManageProjectForm(request.POST)
     if form.is_valid:
       print(form.cleaned_data)
       # project.projStatus = form.changed_data['projStatus']
@@ -18,7 +18,7 @@ def manage_project(request, pk): #(request, project_id)
     "project":project,
     "form":form
   }
-  return render(request, "managment/manage_proj.html", context)
+  return render(request, "management/manage_proj.html", context)
 
 #! KINDA BROKE THIS 
 #! WILL FIX TOMORROW

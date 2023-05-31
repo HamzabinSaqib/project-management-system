@@ -86,7 +86,7 @@ class Assignment(models.Model):
 
 class Resource(models.Model):
     """Resource Model"""
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='resources')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     ResourceID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     availableHours = models.IntegerField(default=0, null=True, blank=True)
     plannedEffort = models.IntegerField(default=0, blank=True, null=True)

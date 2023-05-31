@@ -5,7 +5,7 @@
 <h1> {{project.projName}} </h1>
 <h2> {{project.projDesc}} </h2>
 <h3> Started: {{project.startDate}} </h3>
-<h3> Due On: {{project.endDate}} </h3>
+<h3> Due On: {{project.dueDate}} </h3>
 <h4> {{project.projStatus}} </h4>
 <h5> Manager: {{project.manager}} </h5>
 <hr/>
@@ -13,7 +13,7 @@
 <!--  Logical error somewhere in delete functionality-->
 <!-- <a href="{% url 'base:project_delete' project.pk %}">Delete Project</a> -->
 <!-- It seems to be an error in the database schema, you'll have to resolve it since I don't want to break the database-->
-<form action="{% url 'base:project_delete' project.pk %}" method="POST">
+<form action="{% url 'base:project_delete' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
   {% csrf_token %}
   <button type="submit">Delete Project</button>
 </form>

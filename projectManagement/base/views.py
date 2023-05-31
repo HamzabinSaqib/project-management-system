@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from . models import Project
 from .forms import CreateProjectForm
 
@@ -27,9 +28,11 @@ def create_project(request):
             name = form.cleaned_data['projName']
             desc = form.cleaned_data['projDesc']
             due = form.cleaned_data['dueDate']
-            end = form.cleaned_data['endDate']
+            end = form.cleaned_data['endDate'] if 'endDate' in form.cleaned_data else None
             status = form.cleaned_data['projStatus']
+            # mgr = request.user.username
             Project.objects.create(
+                # manager = mgr,
                 projName = name,
                 projDesc = desc,
                 dueDate = due,
@@ -40,10 +43,10 @@ def create_project(request):
             return redirect("/home")
     context = {"form":form}
     return render(request, "base/project_creation.html", context)
-=======
->>>>>>> 29834dd591b7027e3ab0e7be94d3710ee95794b7
 
+@login_required(login_url='authentication:login')
 def project_delete(request, pk):
-    project = Project.objects.get(projID=pk)
-    project.delete()
+    if request.method == "POST":
+        project = Project.objects.get(projID=pk)
+        project.delete()
     return redirect("/home")

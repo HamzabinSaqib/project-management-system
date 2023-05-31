@@ -1,23 +1,24 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
-
-<h2> Projects </h2>
-
+<h2>Projects</h2>
+<hr />
 <div>
-    <a href="/home/new">Create New Project</a>
-    <hr/>
-    <div>
-        {% for project in projects %}
-        
-        <div>
-            <h3>
-                {{project.manager.username}} -- <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
-            </h3>
-        </div>
+  <a href="/home/new">Create New Project</a>
 
-        {% endfor %}
+  <hr />
+  <div>
+    {% for project in projects %}
+
+    <div>
+      <h3>
+        {{project.manager.username}} --
+        <a href="{% url 'base:project' project.projID %}">
+          {{project.projName}}
+        </a>
+      </h3>
     </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

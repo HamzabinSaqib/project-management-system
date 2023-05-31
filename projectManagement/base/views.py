@@ -1,17 +1,14 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from . models import Project
 from .forms import CreateProjectForm
 def login(req):
     return render(req, 'base/login.html')
 
-=======
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from . models import Project
 
 @login_required(login_url='authentication:login')
->>>>>>> 29834dd591b7027e3ab0e7be94d3710ee95794b7
 def home(req):
     projects = Project.objects.all()
     context = {'projects':projects}
@@ -23,7 +20,6 @@ def project(req, pk):
     context = {'project': project}
     return render(req, 'base/project.html', context)
 
-<<<<<<< HEAD
 
 def create_project(request):
     form = CreateProjectForm()
@@ -51,5 +47,3 @@ def create_project(request):
         "form":form
     }
     return render(request, "base/project_creation.html", context)
-=======
->>>>>>> 29834dd591b7027e3ab0e7be94d3710ee95794b7

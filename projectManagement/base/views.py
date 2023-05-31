@@ -47,3 +47,8 @@ def create_project(request):
         "form":form
     }
     return render(request, "base/project_creation.html", context)
+
+def project_delete(request, pk):
+    project = Project.objects.get(projID=pk)
+    project.delete()
+    return redirect("/home")

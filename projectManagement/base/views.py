@@ -38,7 +38,12 @@ def create_project(request):
             )
             print('New Project created')
             return redirect("/home")
-    context = {
-        "form":form
-    }
+    context = {"form":form}
     return render(request, "base/project_creation.html", context)
+=======
+>>>>>>> 29834dd591b7027e3ab0e7be94d3710ee95794b7
+
+def project_delete(request, pk):
+    project = Project.objects.get(projID=pk)
+    project.delete()
+    return redirect("/home")

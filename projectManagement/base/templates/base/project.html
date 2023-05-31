@@ -3,6 +3,19 @@
 {% block content %}
 
 <h1> {{project.projName}} </h1>
-<a href="/home/manage">Manage Project</a>
+<h2> {{project.projDesc}} </h2>
+<h3> Started: {{project.startDate}} </h3>
+<h3> Due On: {{project.endDate}} </h3>
+<h4> {{project.projStatus}} </h4>
+<h5> Manager: {{project.manager}} </h5>
+<hr/>
+<a href="/base/home/{{ project.pk }}/manage/">Manage Project</a>
+<!--  Logical error somewhere in delete functionality-->
+<!-- <a href="{% url 'base:project_delete' project.pk %}">Delete Project</a> -->
+<!-- It seems to be an error in the database schema, you'll have to resolve it since I don't want to break the database-->
+<form action="{% url 'base:project_delete' project.pk %}" method="POST">
+  {% csrf_token %}
+  <button type="submit">Delete Project</button>
+</form>
 
-{% endblock content%}
+{% endblock %}

@@ -1,22 +1,18 @@
 {% extends 'main.html' %} {% block content %}
 
-<h2>Projects</h2>
-<hr />
 <div>
-  <a href="/home/new">Create New Project</a>
+  <br>
+  <a href="{% url 'base:new_Project' %}">New Project</a>
 
-  <hr />
   <div>
     {% for project in projects %}
-
-    <div>
-      <h3>
-        {{project.manager.username}} --
-        <a href="{% url 'base:project' project.projID %}">
-          {{project.projName}}
-        </a>
-      </h3>
-    </div>
+      {% if project.manager.username == request.user.username %}
+        <div>
+          <h4>
+            <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
+          </h4>
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
 </div>

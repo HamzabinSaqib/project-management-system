@@ -2,4 +2,11 @@
     <h1> ProjectPro </h1>
 </a>
 
-<hr>
+<h2>Welcome, {{request.user.username}}</h2>
+
+<form method="GET" action="{% url 'base:home' %}">
+    <input type="text" name="q" placeholder="Search Projects ...">
+</form>
+
+<a href="{% url 'base:home' %}">Reset</a>
+<br>

@@ -25,7 +25,7 @@ class Project(models.Model):
     
     def set_dueDate(self, date: str): # 'YYYY-DD-MM HH:MM:SS'
         """Set Project Due Date"""
-        self.dueDate = datetime.strptime(date, '%Y-%d-%m %H:%M:%S')
+        self.dueDate = datetime.strptime(date, '%d-%m-%Y %H:%M:%S')
         
     def __str__(self):
         return self.projName
@@ -54,7 +54,7 @@ class Task(models.Model):
     
     def set_dueDate(self, date: str): # 'YYYY-DD-MM HH:MM:SS'
         """Set Project Due Date"""
-        self.dueDate = datetime.strptime(date, '%Y-%d-%m %H:%M:%S')
+        self.dueDate = datetime.strptime(date, '%d-%m-%Y %H:%M:%S')
         
     def __str__(self):
         return self.taskName

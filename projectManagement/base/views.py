@@ -6,7 +6,8 @@ from .forms import CreateProjectForm
 
 @login_required(login_url='authentication:login')
 def home(request):
-    projects = Project.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    projects = Project.objects.filter(projName__icontains=q)
     context = {'projects':projects}
     return render(request, 'base/home.html', context)
 
@@ -22,6 +23,8 @@ def create_project(request):
     if request.method == "POST":
         form = CreateProjectForm(request.POST)
         if form.is_valid():
+            manager_username = request.user.username
+            mgr = User.objects.get(username=manager_username)
             # project_name = form.cleaned_data
             print('The form is valid')
             print(form.cleaned_data)
@@ -30,9 +33,8 @@ def create_project(request):
             due = form.cleaned_data['dueDate']
             end = form.cleaned_data['endDate'] if 'endDate' in form.cleaned_data else None
             status = form.cleaned_data['projStatus']
-            # mgr = request.user.username
             Project.objects.create(
-                # manager = mgr,
+                manager = mgr,
                 projName = name,
                 projDesc = desc,
                 dueDate = due,
@@ -40,7 +42,7 @@ def create_project(request):
                 projStatus = status,
             )
             print('New Project created')
-            return redirect("/home")
+            return redirect('base:home')
     context = {"form":form}
     return render(request, "base/project_creation.html", context)
 
@@ -49,4 +51,4 @@ def project_delete(request, pk):
     if request.method == "POST":
         project = Project.objects.get(projID=pk)
         project.delete()
-    return redirect("/home")
+    return redirect('base:home')

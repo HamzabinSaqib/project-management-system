@@ -1,5 +1,6 @@
+from django.forms import inlineformset_factory
 from django import forms
-from .models import Project
+from .models import Project, Task, Assignee
 
 class CreateProjectForm(forms.ModelForm):
   projName = forms.CharField(label="Name", max_length=50)
@@ -14,14 +15,28 @@ class CreateProjectForm(forms.ModelForm):
     model = Project
     fields = ('projName', 'projDesc','dueDate','endDate','projStatus',)
 
-class ManageProjectForm(forms.Form):
-  Status_choices = [('In Progress', 'In Progress'), ('On Hold', 'On Hold'), ('Completed', 'Completed'), ('Cancelled', 'Cancelled'), ('Overdue', 'Overdue'), ('Inactive', 'Inactive')]
-  
-  projStatus = forms.CharField(widget=forms.Select(choices=Status_choices))
-  task_name = forms.CharField()
-  task_desc = forms.CharField()
-  taskStatus = forms.CharField(widget=forms.Select(choices=Status_choices))
-  assigned_to = forms.CharField()
-  project_availableHours = forms.IntegerField(min_value=0)
-  effort_so_far = forms.IntegerField(min_value=0)
-  budget_spent_so_far = forms.IntegerField(min_value=0)
+
+class ManageTaskForm(forms.ModelForm):
+    assigned_to = forms.ModelChoiceField(queryset=Assignee.objects.all(), empty_label=None)
+
+    class Meta:
+        model = Task
+        fields = ['taskName', 'taskDesc', 'taskStatus', 'assigned_to', 'project', 'dueDate']
+
+ManageTaskFormSet = inlineformset_factory(Project, Task, form=ManageTaskForm, extra=1)
+
+class ManageProjectForm(forms.ModelForm):
+    STATUS_CHOICES = [
+        ('In Progress', 'In Progress'),
+        ('On Hold', 'On Hold'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+        ('Overdue', 'Overdue'),
+        ('Inactive', 'Inactive')
+    ]
+
+    projStatus = forms.ChoiceField(choices=STATUS_CHOICES)
+    project_availableHours = forms.IntegerField(min_value=0)
+    class Meta:
+        model = Project
+        fields = ['projStatus', 'project_availableHours',]

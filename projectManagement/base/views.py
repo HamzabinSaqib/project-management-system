@@ -52,3 +52,9 @@ def project_delete(request, pk):
         project = Project.objects.get(projID=pk)
         project.delete()
     return redirect('base:home')
+
+def delete_project(request, pk):
+    if request.method == "POST":
+        project = Project.objects.get(projID=pk)
+        project.delete()
+    return redirect('base:home')

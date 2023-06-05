@@ -9,5 +9,5 @@ urlpatterns = [
     path('project/<str:pk>/', views.project, name='project'),
     path('new/', views.create_project, name='new_Project'),
     path('manage/', include('management.urls', namespace='management')),
-    path('delete/<str:pk>/', views.project_delete, name='project_delete')
+    path('delete/<str:pk>/', views.delete_project, name='del_project')
 ]

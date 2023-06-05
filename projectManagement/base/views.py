@@ -47,7 +47,7 @@ def create_project(request):
     return render(request, "base/project_creation.html", context)
 
 @login_required(login_url='authentication:login')
-def project_delete(request, pk):
+def delete_project(request, pk):
     if request.method == "POST":
         project = Project.objects.get(projID=pk)
         project.delete()

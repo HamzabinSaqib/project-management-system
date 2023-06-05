@@ -1,19 +1,20 @@
-{% extends 'main.html' %}
+{% extends 'navbar.html' %} {% block content %}
 
-{% block content %}
+<div>
+  <h2> {{project.projName}} </h2>
+  <h3> {{project.projDesc}} </h3>
+  <h4> Started: {{project.startDate}} </h4>
+  <h4> Due On: {{project.dueDate}} </h4>
+  <h4> Status: {{project.projStatus}} </h4>
+  <h4> Manager: {{project.manager}} </h4>
+  <hr/>
+  <a href="{% url 'base:manage_Project' project.pk %}">Manage Project</a>
+  <br><br>
+  <form action="{% url 'base:del_project' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
+    {% csrf_token %}
+    <button type="submit">Delete Project</button>
+  </form>
+</div>
 
-<h1> {{project.projName}} </h1>
-<h2> {{project.projDesc}} </h2>
-<h3> Started: {{project.startDate}} </h3>
-<h3> Due On: {{project.dueDate}} </h3>
-<h4> {{project.projStatus}} </h4>
-<h5> Manager: {{project.manager}} </h5>
-<hr/>
-<a href="{% url 'base:manage_Project' project.pk %}">Manage Project</a>
-<br><br>
-<form action="{% url 'base:del_project' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
-  {% csrf_token %}
-  <button type="submit">Delete Project</button>
-</form>
 
 {% endblock %}

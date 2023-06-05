@@ -64,6 +64,7 @@ class ManageProjectForm(forms.ModelForm):
     projStatus = forms.ChoiceField(choices=STATUS_CHOICES)
     resourceForm = ManageResourceForm()
     financeForm = ManageFinanceForm()
+    taskForm = CreateTaskForm()
     
     class Meta:
         model = Project

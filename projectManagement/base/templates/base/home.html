@@ -1,6 +1,14 @@
 {% extends 'main.html' %} {% block content %}
 
 <div>
+  <h2>Welcome, {{request.user.username}}</h2>
+
+  <form method="GET" action="{% url 'base:home' %}">
+      <input type="text" name="q" placeholder="Search Projects ...">
+  </form>
+
+  <a href="{% url 'base:home' %}">Reset</a>
+  <br>
   <br>
   <a href="{% url 'base:new_Project' %}">New Project</a>
 
@@ -9,11 +17,13 @@
       {% if project.manager.username == request.user.username %}
         <div>
           <h4>
+            <hr/>
             <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
           </h4>
         </div>
       {% endif %}
     {% endfor %}
+    <hr/>
   </div>
 </div>
 

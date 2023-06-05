@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from . models import Project
 from .forms import CreateProjectForm, ManageProjectForm
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import ProjectSerializer
 #! ======================================================== HOME =======================================================
 
 @login_required(login_url='authentication:login')

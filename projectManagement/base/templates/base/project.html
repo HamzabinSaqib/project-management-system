@@ -9,10 +9,8 @@
 <h4> {{project.projStatus}} </h4>
 <h5> Manager: {{project.manager}} </h5>
 <hr/>
-<a href="/base/home/{{ project.pk }}/manage/">Manage Project</a>
-<!--  Logical error somewhere in delete functionality-->
-<!-- <a href="{% url 'base:del_project' project.pk %}">Delete Project</a> -->
-<!-- It seems to be an error in the database schema, you'll have to resolve it since I don't want to break the database-->
+<a href="{% url 'base:manage_Project' project.pk %}">Manage Project</a>
+<br><br>
 <form action="{% url 'base:del_project' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
   {% csrf_token %}
   <button type="submit">Delete Project</button>

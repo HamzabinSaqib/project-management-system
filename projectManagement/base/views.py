@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from . models import Project
-from .forms import CreateProjectForm
+from .forms import CreateProjectForm, ManageProjectForm
+
+#! ======================================================== HOME =======================================================
 
 @login_required(login_url='authentication:login')
 def home(request):
@@ -11,11 +13,16 @@ def home(request):
     context = {'projects':projects}
     return render(request, 'base/home.html', context)
 
+#! ====================================================== PROJECT ======================================================
+
+
 @login_required(login_url='authentication:login')
 def project(request, pk):
     project = Project.objects.get(projID=pk)
     context = {'project': project}
     return render(request, 'base/project.html', context)
+
+#! =================================================== CREATE PROJECT ===================================================
 
 @login_required(login_url='authentication:login')
 def create_project(request):
@@ -46,6 +53,8 @@ def create_project(request):
     context = {"form":form}
     return render(request, "base/project_creation.html", context)
 
+#! =================================================== DELETE PROJECT ===================================================
+
 @login_required(login_url='authentication:login')
 def delete_project(request, pk):
     if request.method == "POST":
@@ -53,8 +62,22 @@ def delete_project(request, pk):
         project.delete()
     return redirect('base:home')
 
-def delete_project(request, pk):
-    if request.method == "POST":
-        project = Project.objects.get(projID=pk)
-        project.delete()
-    return redirect('base:home')
+#! =================================================== MANAGE PROJECT ===================================================
+
+@login_required(login_url='authentication:login')
+def manage_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    
+    if request.method == 'POST':
+        form = ManageProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('base:project', pk)  # Replace 'home' with the appropriate URL name
+    else:
+        form = ManageProjectForm(instance=project)
+    
+    context = {
+        'project': project,
+        'form': form,
+    }
+    return render(request, 'base/manage_proj.html', context)

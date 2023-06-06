@@ -33,9 +33,9 @@ CreateTaskFormSet = inlineformset_factory(Project, Task, form=CreateTaskForm, ex
 
 
 class ManageResourceForm(forms.ModelForm):
-    availableHours = forms.IntegerField(min_value=0)
-    plannedEffort = forms.IntegerField(min_value=0)
-    actualEffort = forms.IntegerField(min_value=0)
+    availableHours = forms.IntegerField(label="Available Hours", min_value=0)
+    plannedEffort = forms.IntegerField(label="Planned Effort", min_value=0)
+    actualEffort = forms.IntegerField(label="Actual Effort", min_value=0)
     
     class Meta:
         model = Resource
@@ -43,9 +43,9 @@ class ManageResourceForm(forms.ModelForm):
 
 
 class ManageFinanceForm(forms.ModelForm):
-    revenue = forms.IntegerField(min_value=0)
-    cost = forms.IntegerField(min_value=0)
-    margin = forms.IntegerField(min_value=0)
+    revenue = forms.IntegerField(label="Total Revenue", min_value=0)
+    cost = forms.IntegerField(label="Total Cost", min_value=0)
+    margin = forms.IntegerField(label="Total Margin", min_value=0)
     
     class Meta:
         model = Finances
@@ -61,10 +61,17 @@ class ManageProjectForm(forms.ModelForm):
         ('Overdue', 'Overdue'),
         ('Inactive', 'Inactive')
     ]
-    projStatus = forms.ChoiceField(choices=STATUS_CHOICES)
+    projStatus = forms.ChoiceField(label="Project Status", choices=STATUS_CHOICES)
     resourceForm = ManageResourceForm()
     financeForm = ManageFinanceForm()
     taskForm = CreateTaskForm()
+    
+    if resourceForm.is_valid():
+        resourceForm.save()
+    
+    if financeForm.is_valid():
+        financeForm.save()
+    
     
     class Meta:
         model = Project

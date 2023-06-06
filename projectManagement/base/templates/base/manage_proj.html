@@ -9,27 +9,27 @@
   <body>
     <h1>Simple Project Management</h1>
     <h3>Manage Project: {{ project.projName }}</h3>
-    <form method="post">
+    <form id="manageForm" method="post">
       {% csrf_token %} {{ form.as_p }}
       
-      <button onclick="toggleResourceForm()">Manage Resources</button>
-      <br><br>
-      <div id="resourceForm" style="display: none;">
-        {{ form.resourceForm.as_p }}
-        <button type="submit" onclick="toggleResourceForm()">Update Resources</button>
+        <button onclick="toggleResourceForm()">Manage Resources</button>
         <br><br>
-      </div>
-      
-      <button onclick="toggleFinanceForm()">Manage Finances</button>
-      <br><br>
-      <div id="financeForm" style="display: none;">
-        {{ form.financeForm.as_p }}
-        <button type="submit" onclick="toggleFinanceForm()">Update Finances</button>
+        <div id="resourceForm" style="display: none;">
+          {{ form.resourceForm.as_p }}
+          <button type="submit" onclick="toggleResourceForm()">Update Resources</button>
+          <br><br>
+        </div>
+        
+        <button onclick="toggleFinanceForm()">Manage Finances</button>
         <br><br>
-      </div>
-      <br><br>
+        <div id="financeForm" style="display: none;">
+          {{ form.financeForm.as_p }}
+          <button type="submit" onclick="toggleFinanceForm()">Update Finances</button>
+          <br><br>
+        </div>
+        <br><br>
 
-      <button type="submit">Save changes</button>
+        <button type="button" onclick="submitForm()">Save changes</button>
     </form>
 
     <!--TODO SOME JAVASCRIPT FOR INTERACTIVITY-->
@@ -43,9 +43,7 @@
           resource_Form.style.display = 'none';
         }
       }
-    </script>
-
-    <script>
+    
       function toggleFinanceForm() {
         var financeForm = document.getElementById('financeForm');
         if (financeForm.style.display === 'none') {
@@ -53,6 +51,10 @@
         } else {
           financeForm.style.display = 'none';
         }
+      }
+
+      function submitForm() {
+        document.getElementById('manageForm').submit();
       }
     </script>
 

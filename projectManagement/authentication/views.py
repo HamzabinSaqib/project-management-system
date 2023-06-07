@@ -33,6 +33,7 @@ def sign_up(request):
         
         if password == conf_password:
             User.objects.create_user(username=username, password=password)
+            messages.success(request, 'Account created! You can now log in.')
             return redirect('authentication:login')
     
     return render(request, 'authentication/sign_up.html')

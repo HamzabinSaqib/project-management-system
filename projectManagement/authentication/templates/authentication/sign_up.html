@@ -5,12 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Sign Up</title>
   <style>
+    .heading {
+      font-size: 24px !important;
+    }
+
+    .login-button {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(115, 208, 255, 0.9);
+    text-decoration: none;
+    }
+
+    .login-button:hover {
+        color: rgba(115, 243, 255, 0.9);
+    }
+
+    .login-button:active{
+        color: rgba(115, 243, 255, 0.7);
+    }
+
     .alert-error {
         color: rgb(255, 90, 90);
     }
 
     .bordered-div {
-        border: 2px solid rgb(180, 211, 227);
+        border: 2px solid rgb(99,102,241);
     }
 
     .hidden-div {
@@ -33,9 +52,9 @@
     <form method="POST" id="signup-form">
       {% csrf_token %}
         <section class="text-gray-600 body-font">
-          <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+          <div class="container px-5 py-24 pt-36 mx-auto flex flex-wrap items-center">
             <div class="lg:w-2/6 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0 bordered-div">
-              <h2 class="text-gray-100 text-lg font-medium title-font mb-5">Sign Up</h2>
+              <h2 class="text-gray-100 text-lg font-medium title-font mb-5 heading">Sign Up</h2>
               {% for message in messages %}
               <div class="alert alert-danger alert-error">{{ message }}</div>
               {% endfor %}
@@ -54,6 +73,7 @@
                 <div id="password-error" class="text-danger hidden-div">Passwords do not match</div>
               </div>
               <button type="submit" id="submit-button" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Sign Up</button>
+              <p class="text-xs text-gray-300 mt-4">Already Registered? <a href="{% url 'authentication:login' %}" class="login-button">Log In</a></p>
             </div>
           </div>
         </section>

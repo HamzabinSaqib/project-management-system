@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Log In</title>
   <style>
+    .heading {
+      font-size: 24px !important;
+    }
+
     .signup-button {
     font-size: 14px;
     font-weight: 600;
@@ -25,8 +29,12 @@
         color: rgb(255, 90, 90);
     }
 
+    .alert-success {
+        color: rgb(90, 255, 167);
+    }
+
     .bordered-div {
-        border: 2px solid rgb(180, 211, 227);
+        border: 2px solid rgb(99,102,241);
     }
 
     .hidden-div {
@@ -49,11 +57,11 @@
     <form method="POST">
       {% csrf_token %}
         <section class="text-gray-600 body-font">
-          <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+          <div class="container px-5 py-24 pt-44 mx-auto flex flex-wrap items-center">
             <div class="lg:w-2/6 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0 bordered-div">
-              <h2 class="text-gray-100 text-lg font-medium title-font mb-5">Log In</h2>
+              <h2 class="text-gray-100 text-lg font-medium title-font mb-5 heading">Log In</h2>
               {% for message in messages %}
-              <div class="alert alert-danger alert-error">{{ message }}</div>
+              <div class="alert alert-danger {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
               {% endfor %}
               <div class="relative mb-4">
                 <label for="username" class="leading-7 text-sm text-gray-200">Username</label>

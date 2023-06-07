@@ -1,13 +1,113 @@
-<h1>Sign Up</h1>
-<form method="post">
-  {% csrf_token %} {% for field in form %}
-  <div class="form-group">
-    {{ field.label_tag }} {{ field }} {% if field.errors %}
-    <div class="text-danger">
-      {% for error in field.errors %} {{ error }} {% endfor %}
-    </div>
-    {% endif %}
-  </div>
-  {% endfor %}
-  <button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Sign Up</title>
+  <style>
+    .alert-error {
+        color: rgb(255, 90, 90);
+    }
+
+    .bordered-div {
+        border: 2px solid rgb(180, 211, 227);
+    }
+
+    .hidden-div {
+        display: none;
+    }
+
+    body {
+        background-color: black;
+    }
+
+    input:-webkit-autofill {
+        -webkit-text-fill-color: rgb(209, 209, 209) !important;
+        -webkit-box-shadow: 0 0 0 30px black inset !important;
+        transition: background-color 5000s ease-in-out 0s; /* Optional: To prevent autofill from resetting the background color */
+    }
+  </style>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+  <body>
+    <form method="POST" id="signup-form">
+      {% csrf_token %}
+        <section class="text-gray-600 body-font">
+          <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+            <div class="lg:w-2/6 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0 bordered-div">
+              <h2 class="text-gray-100 text-lg font-medium title-font mb-5">Sign Up</h2>
+              {% for message in messages %}
+              <div class="alert alert-danger alert-error">{{ message }}</div>
+              {% endfor %}
+              <div class="relative mb-4">
+                <label for="username" class="leading-7 text-sm text-gray-200">Username</label>
+                <input type="text" id="username" name="username" required class="w-full bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <div id="username-error" class="text-danger alert-error hidden-div">Username already exists</div>
+              </div>
+              <div class="relative mb-4">
+                <label for="password" class="leading-7 text-sm text-gray-200">Password</label>
+                <input type="password" id="password" name="password" required class="w-full bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              <div class="relative mb-4">
+                <label for="conf_password" class="leading-7 text-sm text-gray-200">Confirm Password</label>
+                <input type="password" id="conf_password" name="conf_password" required class="w-full bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-400 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <div id="password-error" class="text-danger hidden-div">Passwords do not match</div>
+              </div>
+              <button type="submit" id="submit-button" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Sign Up</button>
+            </div>
+          </div>
+        </section>
+    </form>
+
+    <script>
+      // Get the form and relevant fields
+      const form = document.getElementById('signup-form');
+      const usernameField = document.getElementById('username');
+      const passwordField = document.getElementById('password');
+      const confirmPasswordField = document.getElementById('conf_password');
+      const usernameError = document.getElementById('username-error');
+      const passwordError = document.getElementById('password-error');
+      const submitButton = document.getElementById('submit-button');
+
+      // Function to validate the password fields
+      function validatePasswords() {
+        if (passwordField.value !== confirmPasswordField.value) {
+          passwordError.style.display = 'block';
+          submitButton.disabled = true;
+        } else {
+          passwordError.style.display = 'none';
+          submitButton.disabled = false;
+        }
+      }
+      
+      // Function to check username availability
+      function checkUsernameAvailability() {
+        const username = usernameField.value;
+        fetch('/check-username/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({ username })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.available) {
+              usernameError.style.display = 'none';
+              submitButton.disabled = false;
+            } else {
+              usernameError.style.display = 'block';
+              submitButton.disabled = true;
+            }
+          });
+      }
+
+      // Add event listeners to the username and password fields
+      usernameField.addEventListener('input', checkUsernameAvailability);
+      passwordField.addEventListener('input', validatePasswords);
+      confirmPasswordField.addEventListener('input', validatePasswords);
+    </script>
+
+  </body>
+</html>

@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.contrib import messages
+import json
 
 def home(request):
     return render(request, 'authentication/home.html')
@@ -34,3 +37,13 @@ def sign_up(request):
     
     context = {'form': form}
     return render(request, 'authentication/sign_up.html', context)
+
+def check_username(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body_data = json.loads(body_unicode)
+        username = body_data.get('username')
+        available = True if not User.objects.filter(username=username).exists() else False
+        print(f"\nAvailable: {available}\n")
+        return JsonResponse({'available': available})
+    return JsonResponse({'error': 'Invalid request method.'})

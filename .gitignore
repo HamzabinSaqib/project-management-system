@@ -165,3 +165,8 @@ cython_debug/
 # PNG Files
 *.PNG
 
+# JSON Files
+*.json
+
+# NODE Modules
+node_modules/

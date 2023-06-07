@@ -1,16 +1,40 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .signup-button {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(115, 208, 255, 0.9);
     text-decoration: none;
-    border-radius: 4px;
 }
 
 .signup-button:hover {
-    background-color: #45a049;
+    color: rgba(115, 243, 255, 0.9);
 }
 
-.signup-button:active {
-    background-color: #3c893d;
+.signup-button:active{
+    color: rgba(115, 243, 255, 0.7);
+}
+
+.alert-error {
+    color: rgb(255, 90, 90);
+}
+
+.bordered-div {
+    border: 2px solid rgb(180, 211, 227);
+}
+
+.hidden-div {
+    display: none;
+}
+
+body {
+    background-color: black;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: rgb(210, 210, 210) !important;
+    -webkit-box-shadow: 0 0 0 30px black inset !important;
+    transition: background-color 5000s ease-in-out 0s; /* Optional: To prevent autofill from resetting the background color */
 }

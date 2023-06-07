@@ -27,16 +27,15 @@ def logout_view(request):
 
 def sign_up(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully. You can now log in.')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        conf_password = request.POST.get('conf_password')
+        
+        if password == conf_password:
+            User.objects.create_user(username=username, password=password)
             return redirect('authentication:login')
-    else:
-        form = UserCreationForm()
     
-    context = {'form': form}
-    return render(request, 'authentication/sign_up.html', context)
+    return render(request, 'authentication/sign_up.html')
 
 def check_username(request):
     if request.method == 'POST':

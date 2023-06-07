@@ -68,15 +68,21 @@
       const usernameError = document.getElementById('username-error');
       const passwordError = document.getElementById('password-error');
       const submitButton = document.getElementById('submit-button');
-
+      
+      passwordEqual = false
+      usernameAvailable = false
       // Function to validate the password fields
       function validatePasswords() {
         if (passwordField.value !== confirmPasswordField.value) {
           passwordError.style.display = 'block';
           submitButton.disabled = true;
+          passwordEqual = false
         } else {
           passwordError.style.display = 'none';
-          submitButton.disabled = false;
+          if (usernameAvailable) {
+            submitButton.disabled = false;
+          }
+          passwordEqual = true
         }
       }
       
@@ -95,10 +101,14 @@
           .then(data => {
             if (data.available) {
               usernameError.style.display = 'none';
-              submitButton.disabled = false;
+              if (passwordEqual) {
+                submitButton.disabled = false;
+              }
+              usernameAvailable = true
             } else {
               usernameError.style.display = 'block';
               submitButton.disabled = true;
+              usernameAvailable = false
             }
           });
       }

@@ -1,6 +1,100 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %} 
 
-<div>
+{% load static %}
+
+{% block content %}
+
+<head>
+  <style>
+
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+
+    .heading {
+      font-size: 28px !important;
+    }
+
+    .image {
+      background: url('/static/images/add_project.png');
+      background-size: cover;
+      width: 60px; 
+      height: 60px;
+    }
+
+    .add_project {
+      background: url('/static/images/plus.png');
+      background-size: cover;
+      width: 40px; 
+      height: 40px;
+      animation: fadeIn 1.5s;
+      transition: background 0.3s ease;
+    }
+
+    .add_project:hover {
+      background: url('/static/images/plus_hover.png');
+      background-size: cover;
+    }
+
+    .alert-error {
+        color: rgb(255, 90, 90);
+    }
+
+    .bordered-div {
+        border: 2px solid rgb(99,102,241);
+    }
+
+    .hidden-div {
+        display: none;
+    }
+
+    body {
+        background-color: black;
+    }
+
+    input:-webkit-autofill {
+        -webkit-text-fill-color: rgb(209, 209, 209) !important;
+        -webkit-box-shadow: 0 0 0 30px black inset !important;
+        transition: background-color 5000s ease-in-out 0s; /* Optional: To prevent autofill from resetting the background color */
+    }
+  </style>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+  <body>
+    <div class="container px-5 py-24 pt-40 mx-auto flex flex-wrap items-center">
+      <div class="lg:w-2/6 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0">
+          <h1 class="text-center text-gray-100 text-lg font-medium title-font mb-5 heading">Welcome, {{request.user.username}}</h1>
+          <br><br>
+          {% for project in projects %}
+            {% if project.manager.username == request.user.username %}
+              <div>
+                <h4>
+                  <hr/>
+                  <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
+                </h4>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% if not projects or not is_manager %}
+            <div class="image mx-auto my-auto mb-3"></div>
+            <h2 class="text-center text-gray-100 text-lg font-medium title-font mb-1">No Projects</h2>
+            <h3 class="text-center text-gray-600 text-lg font-medium title-font mb-10">Get Started by Creating a New Project.</h3>
+            <button type="button" onclick="handleClick()">
+              <img class="add_project mx-auto my-auto" src="/static/images/plus.png" alt="Add Project" onmouseover="this.src='/static/images/plus_hover.png';" onmouseout="this.src='/static/images/plus.png';" />
+            </button>
+          {% endif %}
+      </img>
+    </div>
+
+    <script>
+      function handleClick() {
+        window.location.href = "{% url 'base:new_Project' %}";
+      }
+    </script>
+  </body>
+
+<!-- <div>
   <h2>Welcome, {{request.user.username}}</h2>
 
   <form method="GET" action="{% url 'base:home' %}">
@@ -12,19 +106,6 @@
   <br>
   <a href="{% url 'base:new_Project' %}">New Project</a>
 
-  <div>
-    {% for project in projects %}
-      {% if project.manager.username == request.user.username %}
-        <div>
-          <h4>
-            <hr/>
-            <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
-          </h4>
-        </div>
-      {% endif %}
-    {% endfor %}
-    <hr/>
-  </div>
-</div>
+</div> -->
 
 {% endblock %}

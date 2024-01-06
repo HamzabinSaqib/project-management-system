@@ -12,7 +12,9 @@ from .serializers import ProjectSerializer
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     projects = Project.objects.filter(projName__icontains=q)
-    context = {'projects':projects}
+    # Check if the user is a manager of any project
+    is_manager = any(project.manager.username == request.user.username for project in projects)
+    context = {'projects':projects, 'is_manager': is_manager}
     return render(request, 'base/home.html', context)
 
 #! ====================================================== PROJECT ======================================================

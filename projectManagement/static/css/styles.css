@@ -36,6 +36,15 @@
     color: rgba(115, 243, 255, 0.7);
 }
 
+.reset-button {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.reset-button:hover {
+    font-weight: 400;
+}
+
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -56,7 +65,7 @@
     height: 60px;
 }
 
-.add_project {
+.add-project {
     background: url('/static/images/plus.png');
     background-size: cover;
     width: 40px; 
@@ -65,7 +74,7 @@
     transition: background 0.3s ease;
 }
 
-.add_project:hover {
+.add-project:hover {
     background: url('/static/images/plus_hover.png');
     background-size: cover;
 }

@@ -14,7 +14,7 @@ def home(request):
     projects = Project.objects.filter(projName__icontains=q)
     # Check if the user is a manager of any project
     is_manager = any(project.manager.username == request.user.username for project in projects)
-    context = {'projects':projects, 'is_manager': is_manager}
+    context = {'projects':projects, 'is_manager': is_manager, 'q': q}
     return render(request, 'base/home.html', context)
 
 #! ====================================================== PROJECT ======================================================

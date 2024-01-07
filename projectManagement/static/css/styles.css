@@ -45,6 +45,10 @@
     font-size: 28px !important;
 }
 
+.project-heading {
+    font-size: 22px !important;
+}
+
 .image {
     background: url('/static/images/add_project.png');
     background-size: cover;
@@ -76,6 +80,22 @@
 
 .bordered-div {
     border: 2px solid rgb(99,102,241);
+}
+
+.white-bordered-div {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.white-bordered-div:hover {
+    border: 2px solid rgba(99,102,241, 0.8);
+}
+
+.white-bordered-div:hover h2 {
+    opacity: 1;
+}
+
+.low-opacity {
+    opacity: 0.75;
 }
 
 .hidden-div {

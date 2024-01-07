@@ -1,8 +1,6 @@
-{% extends 'main.html' %} 
+{% extends 'main.html' %} {% block content %}
 
-{% load static %}
-
-{% block content %}
+{% load static %} {% load custom_tags %}
 
 <head>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -10,28 +8,36 @@
 </head>
   <body>
     <div class="container px-5 py-24 pt-40 mx-auto flex flex-wrap items-center">
-      <div class="lg:w-2/6 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto md:mr-auto w-full mt-10 md:mt-0">
-          <h1 class="text-center text-gray-100 text-lg font-medium title-font mb-5 welcome-heading">Welcome, {{request.user.username}}</h1>
-          <br><br>
-          {% for project in projects %}
-            {% if project.manager.username == request.user.username %}
-              <div>
-                <h4>
-                  <hr/>
-                  <a href="{% url 'base:project' project.projID %}"> {{project.projName}} </a>
-                </h4>
+      <div class="bg-black rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0">
+        <h1 class="text-center text-gray-100 text-lg font-medium title-font welcome-heading mb-20">Welcome, {{request.user.username}}</h1>
+        {% for project in projects %}
+          {% if project.manager.username == request.user.username %}
+            {% first_true request as is_first_true %}
+            {% if is_first_true %}
+              <div class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex items-center">
+                <div class="image mt-5 mb-5"></div>
+                <h2 class="text-center text-gray-300 text-lg font-medium title-font mt-6 mb-4 ml-5 low-opacity">PROJECTS</h2>
               </div>
             {% endif %}
-          {% endfor %}
-          {% if not projects or not is_manager %}
+            <a href="{% url 'base:project' project.projID %}" class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto">
+              <div class="rounded-lg white-bordered-div mb-10 flex items-center">
+                <h2 class="text-left ml-5 text-gray-300 font-medium title-font project-heading mt-7 mb-7 flex-grow low-opacity">{{project.projName}}</h2>
+                <img src="{% static 'images/'|add:project.projStatus|lower|add:'.png' %}" alt="Project Status" class="w-10 h-10 mr-5">
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+        {% if not projects or not is_manager %}
+          <div class="lg:w-2/6 md:w-1/2 md:ml-auto md:mr-auto">
             <div class="image mx-auto my-auto mb-3"></div>
             <h2 class="text-center text-gray-100 text-lg font-medium title-font mb-1">No Projects</h2>
             <h3 class="text-center text-gray-600 text-lg font-medium title-font mb-10">Get Started by Creating a New Project.</h3>
-            <button type="button" onclick="handleClick()">
-              <img class="add_project mx-auto my-auto" src="/static/images/plus.png" alt="Add Project" onmouseover="this.src='/static/images/plus_hover.png';" onmouseout="this.src='/static/images/plus.png';" />
-            </button>
-          {% endif %}
-      </img>
+          </div>
+        {% endif %}
+        <button type="button" onclick="handleClick()">
+          <img class="add_project mx-auto my-auto" src="/static/images/plus.png" alt="Add Project" onmouseover="this.src='/static/images/plus_hover.png';" onmouseout="this.src='/static/images/plus.png';" />
+        </button>
+      </div>
     </div>
 
     <script>
@@ -42,17 +48,11 @@
   </body>
 
 <!-- <div>
-  <h2>Welcome, {{request.user.username}}</h2>
-
   <form method="GET" action="{% url 'base:home' %}">
       <input type="text" name="q" placeholder="Search Projects ...">
   </form>
 
   <a href="{% url 'base:home' %}">Reset</a>
-  <br>
-  <br>
-  <a href="{% url 'base:new_Project' %}">New Project</a>
-
 </div> -->
 
 {% endblock %}

@@ -10,11 +10,10 @@ class CreateProjectForm(forms.ModelForm):
         ('On Hold', 'On Hold'), 
         ('Completed', 'Completed'), 
         ('Cancelled', 'Cancelled'), 
-        ('Overdue', 'Overdue'), 
-        ('Inactive', 'Inactive')
+        ('Overdue', 'Overdue')
     ]
     projStatus = forms.ChoiceField(label="Status", choices=Status_choices)
-    dueDate = forms.DateTimeField(label="Due Date", widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+    dueDate = forms.DateTimeField(label="Due Date", required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     endDate = forms.DateTimeField(label="End Date", required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     
     class Meta:
@@ -58,8 +57,7 @@ class ManageProjectForm(forms.ModelForm):
         ('On Hold', 'On Hold'),
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
-        ('Overdue', 'Overdue'),
-        ('Inactive', 'Inactive')
+        ('Overdue', 'Overdue')
     ]
     projStatus = forms.ChoiceField(label="Project Status", choices=STATUS_CHOICES)
     resourceForm = ManageResourceForm()

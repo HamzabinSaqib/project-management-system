@@ -36,15 +36,6 @@
     color: rgba(115, 243, 255, 0.7);
 }
 
-.reset-button {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.reset-button:hover {
-    font-weight: 400;
-}
-
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
@@ -63,6 +54,18 @@
     background-size: cover;
     width: 60px; 
     height: 60px;
+}
+
+.reset-button {
+    background: url('/static/images/reset.png');
+    background-size: cover;
+    animation: fadeIn 1.5s;
+    transition: background 0.2s ease;
+}
+
+.reset-button:hover {
+    background: url('/static/images/reset_hover.png');
+    background-size: cover;
 }
 
 .add-project {

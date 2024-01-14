@@ -25,7 +25,7 @@
               {% if q %}
                 <div class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex items-center">
                   <h2 class="text-center text-gray-300 text-lg font-medium title-font mt-6 mb-4 low-opacity">Search results for: "{{ q }}"</h2>
-                  <a href="{% url 'base:home' %}" class="reset-button ml-7 text-center font-small title-font rounded-md border border-indigo-500 hover:border-indigo-300 text-indigo-500 hover:text-indigo-300 py-0.3 px-2 mt-6 mb-4 transition-colors duration-100 ease-in-out">Reset</a>
+                  <button type="button" class="reset-button ml-5 mt-7 mb-4 w-6 h-6" aria-label="Reset Search" onclick="handleResetClick()"></button>
                 </div>
               {% endif %}
             {% endif %}
@@ -44,15 +44,19 @@
             <h3 class="text-center text-gray-600 text-lg font-medium title-font mb-10">Get Started by Creating a New Project.</h3>
           </div>
         {% endif %}
-        <button type="button" onclick="handleClick()">
-          <img class="add-project mx-auto my-auto" src="/static/images/plus.png" alt="Add Project" onmouseover="this.src='/static/images/plus_hover.png';" onmouseout="this.src='/static/images/plus.png';" />
+        <button type="button" onclick="handleAddClick()">
+          <img class="add-project mx-auto my-auto" src="/static/images/plus.png" alt="Add Project" onmouseover="this.src='/static/images/plus_hover.png';" onmouseout="this.src='/static/images/plus.png';">
         </button>
       </div>
     </div>
 
     <script>
-      function handleClick() {
+      function handleAddClick() {
         window.location.href = "{% url 'base:new_Project' %}";
+      }
+
+      function handleResetClick() {
+        window.location.href = "{% url 'base:home' %}";
       }
 
       document.getElementById('search-input').addEventListener('focus', function() {

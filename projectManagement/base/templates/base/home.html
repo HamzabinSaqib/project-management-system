@@ -7,19 +7,20 @@
   <link href="/static/css/styles.css" rel="stylesheet">
 </head>
   <body>
-    <div class="container px-5 py-24 pt-40 mx-auto flex flex-wrap items-center">
+    <div class="container px-5 py-24 pt-5 mx-auto flex flex-wrap items-center">
       <div class="bg-black rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0">
-        <h1 class="text-center text-gray-100 text-lg font-medium title-font welcome-heading mb-20">Welcome, {{request.user.username}}</h1>
+        <!-- <h1 class="text-center text-gray-100 text-lg font-medium title-font welcome-heading mb-20 mt-20">Welcome, {{request.user.username}}</h1> -->
+        <div class="h-0.5 w-64 bg-indigo-500 rounded-full mx-auto mb-10"></div>
         {% for project in projects %}
           {% if project.manager.username == request.user.username %}
             {% first_true request as is_first_true %}
             {% if is_first_true %}
               <div class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex items-center">
-                <div class="image mt-5 mb-5"></div>
-                <h2 class="text-center text-gray-300 text-lg font-medium title-font mt-6 mb-4 ml-5 low-opacity">PROJECTS</h2>
+                <div class="projects-image mt-5 mb-5"></div>
+                <h2 class="project-heading text-center text-gray-300 text-lg font-medium title-font mt-4 mb-4 ml-5">PROJECTS</h2>
                 <img id="search-icon" src="{% static 'images/search.png' %}" alt="Search Icon" class="ml-auto w-8 h-8 mr-4 low-opacity">
                 <form method="GET" action="{% url 'base:home' %}" class="inline-block">
-                  <input type="search" id="search-input" name="q" required class="w-64 ml-auto bg-black rounded-md border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-4 block leading-8 transition-colors duration-200 ease-in-out" placeholder="Search...">
+                  <input type="search" id="search-input" name="q" required class="w-64 ml-auto bg-black rounded-md border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none placeholder-gray-500 text-gray-300 py-1 px-4 block leading-8 transition-colors duration-200 ease-in-out" placeholder="Search...">
                 </form>
               </div>
               {% if q %}
@@ -38,8 +39,8 @@
           {% endif %}
         {% endfor %}
         {% if not projects or not is_manager %}
-          <div class="lg:w-2/6 md:w-1/2 md:ml-auto md:mr-auto">
-            <div class="image mx-auto my-auto mb-3"></div>
+          <div class="lg:w-2/6 md:w-1/2 md:ml-auto md:mr-auto mt-20">
+            <div class="add-projects-image mx-auto my-auto mb-3"></div>
             <h2 class="text-center text-gray-100 text-lg font-medium title-font mb-1">No Projects</h2>
             <h3 class="text-center text-gray-600 text-lg font-medium title-font mb-10">Get Started by Creating a New Project.</h3>
           </div>

@@ -13,7 +13,7 @@ class Project(models.Model):
     projID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     projName = models.CharField(max_length=50)
     projDesc = models.TextField(null=True, blank=True)
-    startDate = models.DateTimeField(auto_now_add=True)
+    startDate = models.DateTimeField(null=True, blank=True)
     dueDate = models.DateTimeField(null=True, blank=True)
     endDate = models.DateTimeField(null=True, blank=True)
     projStatus = models.CharField(max_length=20)
@@ -26,6 +26,10 @@ class Project(models.Model):
     def set_dueDate(self, date: str): # 'YYYY-DD-MM HH:MM:SS'
         """Set Project Due Date"""
         self.dueDate = datetime.strptime(date, '%d-%m-%Y %H:%M:%S')
+        
+    def set_startDate(self, date: str): # 'YYYY-DD-MM HH:MM:SS'
+        """Set Project Start Date"""
+        self.startDate = datetime.strptime(date, '%d-%m-%Y %H:%M:%S')
         
     def __str__(self):
         return self.projName

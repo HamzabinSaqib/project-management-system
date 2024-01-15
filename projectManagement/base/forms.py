@@ -13,12 +13,13 @@ class CreateProjectForm(forms.ModelForm):
         ('Overdue', 'Overdue')
     ]
     projStatus = forms.ChoiceField(label="Status", choices=Status_choices)
+    startDate = forms.DateTimeField(label="Start Date", required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     dueDate = forms.DateTimeField(label="Due Date", required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     endDate = forms.DateTimeField(label="End Date", required=False, widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     
     class Meta:
         model = Project
-        fields = ('projName', 'projDesc','dueDate','endDate','projStatus',)
+        fields = ('projName', 'projDesc', 'startDate', 'dueDate','endDate','projStatus',)
 
 
 class CreateTaskForm(forms.ModelForm):

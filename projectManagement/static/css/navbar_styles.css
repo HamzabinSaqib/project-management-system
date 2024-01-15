@@ -1,0 +1,32 @@
+.hover-stroke {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+.hover-stroke:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+.active.hover-stroke {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+.active.hover-stroke:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.hover-stroke svg {
+    stroke: rgba(255, 255, 255, 0.4);
+}
+.hover-stroke:hover svg {
+    stroke: rgb(99,102,241);
+}
+.dropdown-menu {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.active.hover-stroke:hover svg {
+    stroke: rgb(99,102,241);
+}
+.active.hover-stroke svg {
+    stroke: rgb(99,102,241);
+}

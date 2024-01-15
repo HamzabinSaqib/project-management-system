@@ -1,16 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create New Project</title>
-  </head>
-  <body>
-    <h1>Create New Project</h1>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Save changes</button>
-    </form>
-  </body>
-</html>
+{% extends 'main.html' %} {% block content %}
+
+{% load static %}
+
+<head>
+  <title>{% block title %}Create New Project{% endblock %}</title>
+  <link href="/static/css/project_creation_styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container px-5 py-24 pt-5 mx-auto flex flex-wrap items-center">
+    <div class="bg-black rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0">
+      <div class="h-0.5 w-64 bg-indigo-500 rounded-full mx-auto mb-10"></div>
+      <div class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex items-center">
+        <div class="add-project-image mt-5 mb-5"></div>
+        <h2 class="project-heading text-center text-gray-300 text-lg font-medium title-font mt-4 mb-4 ml-5">CREATE&nbsp; NEW&nbsp; PROJECT</h2>
+      </div>
+      <form method="POST" id="project-creation-form">
+        {% csrf_token %}
+        <section class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex-1 items-center">
+          <div class="w-full rounded-lg mb-10 flex-col items-center bordered-div">
+            <div class="flex items-center">
+              <label for="name" class="text-left ml-5 mr-10 text-gray-300 font-medium title-font field-name mt-10 mb-10 flex-grow low-opacity">Name:</label>
+              <input type="text" id="name" name="name" required class="w-4/6 ml-6 bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <label for="status" class="text-left ml-12 mr-5 text-gray-300 font-medium title-font field-name mt-10 mb-10 flex-grow low-opacity">Status:</label>
+              <select id="status" name="status" required class="w-56 bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-2 px-2 mr-5 leading-8 transition-colors duration-200 ease-in-out">
+                <option class="rounded" value="">Select Status</option>
+                <option class="rounded" value="In Progress">In Progress</option>
+                <option class="rounded" value="On Hold">On Hold</option>
+                <option class="rounded" value="Completed">Completed</option>
+                <option class="rounded" value="Cancelled">Cancelled</option>
+                <option class="rounded" value="Overdue">Overdue</option>
+              </select>
+            </div>
+            <div class="flex items-centre">
+              <label for="desc" class="text-left ml-5 mr-5 text-gray-300 font-medium title-font field-name mb-10 flex-grow low-opacity">Description:</label>
+              <textarea id="desc" name="desc" rows="3" class="w-full bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 mr-5 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+            </div>
+            <div class="flex items-center">
+              <div class="flex items-center">
+                <label for="start_date" class="text-left ml-5 mr-5 text-gray-300 font-medium title-font field-name mt-10 mb-10 flex-grow low-opacity">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" class="w-56 ml-3 bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 mr-5 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              <div class="flex items-center">
+                <label for="due_date" class="text-left ml-12 mr-5 text-gray-300 font-medium title-font field-name mt-10 mb-10 flex-grow low-opacity">Due Date:</label>
+                <input type="date" id="due_date" name="due_date" class="w-56 ml-3 bg-black rounded border border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-300 py-1 px-3 mr-5 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              <div class="flex flex-grow items-center justify-end mr-5">
+                <button type="submit" class="create-project" aria-label="Create Project"></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+  
+</body>
+
+{% endblock %}

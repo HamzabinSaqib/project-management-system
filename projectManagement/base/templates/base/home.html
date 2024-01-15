@@ -3,6 +3,7 @@
 {% load static %} {% load custom_tags %}
 
 <head>
+  <title>{% block title %}Projects{% endblock %}</title>
   <link href="/static/css/styles.css" rel="stylesheet">
 </head>
   <body>
@@ -39,7 +40,7 @@
         {% endfor %}
         {% if not projects or not is_manager %}
           <div class="lg:w-2/6 md:w-1/2 md:ml-auto md:mr-auto mt-20">
-            <div class="add-projects-image mx-auto my-auto mb-3"></div>
+            <div class="no-projects-image mx-auto my-auto mb-3"></div>
             <h2 class="text-center text-gray-100 text-lg font-medium title-font mb-1">No Projects</h2>
             <h3 class="text-center text-gray-600 text-lg font-medium title-font mb-10">Get Started by Creating a New Project.</h3>
           </div>

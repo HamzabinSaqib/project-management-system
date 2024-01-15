@@ -49,8 +49,8 @@
     font-size: 22px !important;
 }
 
-.add-projects-image {
-    background: url('/static/images/add_project.png');
+.no-projects-image {
+    background: url('/static/images/no_projects.png');
     background-size: cover;
     width: 60px; 
     height: 60px;

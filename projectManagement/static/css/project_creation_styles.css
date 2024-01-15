@@ -1,0 +1,39 @@
+.project-heading {
+    font-size: 22px !important;
+}
+.field-name {
+    font-size: 18px !important;
+}
+.field-width {
+    width: 200px;
+}
+.add-project-image {
+    background: url('/static/images/add_project.png');
+    background-size: cover;
+    width: 60px; 
+    height: 60px;
+}
+.create-project {
+    background: url('/static/images/plus.png');
+    background-size: cover;
+    width: 35px; 
+    height: 35px;
+    animation: fadeIn 1.5s;
+    transition: background 0.3s ease;
+}
+
+.create-project:hover {
+    background: url('/static/images/plus_hover.png');
+    background-size: cover;
+}
+.bordered-div {
+    border: 2px solid rgb(99,102,241);
+}
+.low-opacity {
+    opacity: 0.90;
+}
+input:-webkit-autofill {
+    -webkit-text-fill-color: rgb(210, 210, 210) !important;
+    -webkit-box-shadow: 0 0 0 30px #1A202C inset !important;
+    transition: background-color 5000s ease-in-out 0s; /* Optional: To prevent autofill from resetting the background color */
+}

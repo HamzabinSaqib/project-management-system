@@ -26,9 +26,9 @@
                     <a href="#" class="rounded border-0 text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors duration-100 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account Settings</a>
                     <!-- <a href="#" class="rounded border-0 text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors duration-100 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
                     <a href="#" class="rounded border-0 text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors duration-100 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a> -->
-                    <form method="POST" action="#" role="none">
-                        <button type="submit" class="rounded border-0 text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors duration-100 ease-in-out block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign Out</button>
-                    </form>
+                    <a href="{% url 'authentication:logout' %}" role="menuitem" tabindex="-1" id="menu-item-3">
+                        <button type="button" class="rounded border-0 text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors duration-100 ease-in-out block w-full px-4 py-2 text-left text-sm">Sign Out</button>
+                    </a>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from . models import Project
-from .forms import CreateProjectForm, ManageProjectForm
+from .forms import ManageProjectForm
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ProjectSerializer
@@ -30,32 +30,30 @@ def project(request, pk):
 
 @login_required(login_url='authentication:login')
 def create_project(request):
-    form = CreateProjectForm()
     if request.method == "POST":
-        form = CreateProjectForm(request.POST)
-        if form.is_valid():
-            manager_username = request.user.username
-            mgr = User.objects.get(username=manager_username)
-            # project_name = form.cleaned_data
-            print('The form is valid')
-            print(form.cleaned_data)
-            name = form.cleaned_data['projName']
-            desc = form.cleaned_data['projDesc']
-            due = form.cleaned_data['dueDate']
-            end = form.cleaned_data['endDate'] if 'endDate' in form.cleaned_data else None
-            status = form.cleaned_data['projStatus']
-            Project.objects.create(
-                manager = mgr,
-                projName = name,
-                projDesc = desc,
-                dueDate = due,
-                endDate = end,
-                projStatus = status,
-            )
-            print('New Project created')
-            return redirect('base:home')
-    context = {"form":form}
-    return render(request, "base/project_creation.html", context)
+        manager_username = request.user.username
+        mgr = User.objects.get(username=manager_username)
+        name = request.POST.get('name')
+        desc = request.POST.get('desc')
+        start_date = request.POST.get('start_date')
+        due_date = request.POST.get('due_date')
+        status = request.POST.get('status')
+        
+        if start_date == "":
+            start_date = None
+        if due_date == "":
+            due_date = None
+            
+        Project.objects.create(
+            manager = mgr,
+            projName = name,
+            projDesc = desc,
+            startDate = start_date,
+            dueDate = due_date,
+            projStatus = status,
+        )
+        return redirect('base:home')
+    return render(request, "base/project_creation.html")
 
 #! =================================================== DELETE PROJECT ===================================================
 

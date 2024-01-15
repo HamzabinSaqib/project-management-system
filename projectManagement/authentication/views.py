@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.cache import never_cache
 from django.http import JsonResponse
 from django.contrib import messages
 import json
@@ -9,7 +10,11 @@ import json
 def home(request):
     return render(request, 'authentication/home.html')
 
+@never_cache
+@csrf_protect
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('base:home')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -19,12 +24,14 @@ def login_view(request):
             return redirect('base:home')
         else:
             messages.error(request, 'Invalid Username or Password')
+            return redirect('authentication:login')
     return render(request, 'authentication/login.html')
 
 def logout_view(request):
     logout(request)
     return redirect('authentication:home')
 
+@csrf_protect
 def sign_up(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -38,6 +45,7 @@ def sign_up(request):
     
     return render(request, 'authentication/sign_up.html')
 
+@csrf_protect
 def check_username(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')

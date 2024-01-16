@@ -4,47 +4,9 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-  <title>Log In</title>
-  <style>
-    .heading {
-        font-size: 30px !important;
-    }
-
-    .login-button {
-      border: 2px solid rgb(99,102,241) !important;
-    }
-
-    .signup-button {
-      border: 2px solid rgb(99,102,241) !important;
-    }
-
-    .buttons {
-      font-weight: 500;
-      font-size: 24px;
-      justify-content: center !important;
-      align-items: center !important;
-    }
-
-    .buttons-flex {
-      padding: 0px 50px !important;
-      transition: padding 0.2s ease-in-out;
-    }
-
-    .buttons-flex:hover {
-      padding: 0px 30px !important;
-    }
-
-    body {
-        background-color: black;
-    }
-
-    input:-webkit-autofill {
-        -webkit-text-fill-color: rgb(209, 209, 209) !important;
-        -webkit-box-shadow: 0 0 0 30px black inset !important;
-        transition: background-color 5000s ease-in-out 0s; /* Optional: To prevent autofill from resetting the background color */
-    }
-  </style>
+  <title>ProjectPRO</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="/static/css/styles.css" rel="stylesheet">
 </head>
   <body>
     <section class="text-gray-600 body-font px-0">
@@ -59,14 +21,12 @@
         </div>
       <div class="flex flex-wrap buttons">
         <div class="p-2 md:w-1/4 sm:w-1/2 items-center justify-center buttons-flex">
-          <a href="{% url 'authentication:login' %}"><button type="button" id="login-button" class="text-white bg-black border-0 py-3 px-10 w-full h-full focus:outline-none hover:bg-indigo-600 rounded login-button">Log In</button></a>
+          <a href="{% url 'authentication:login' %}"><button type="button" id="login-button" class="text-white bg-black border-0 py-3 px-10 w-full h-full focus:outline-none hover:bg-indigo-600 rounded login-button-home">Log In</button></a>
         </div>
         <div class="p-2 md:w-1/4 sm:w-1/2 w-full items-center justify-center buttons-flex">
-          <a href="{% url 'authentication:signup' %}"><button type="button" id="signup-button" class="text-white bg-black border-0 py-3 px-10 w-full h-full focus:outline-none hover:bg-indigo-600 rounded signup-button">Sign Up</button></a>
+          <a href="{% url 'authentication:signup' %}"><button type="button" id="signup-button" class="text-white bg-black border-0 py-3 px-10 w-full h-full focus:outline-none hover:bg-indigo-600 rounded signup-button-home">Sign Up</button></a>
         </div>
       </div>
     </section>
   </body>
 </html>
-
-

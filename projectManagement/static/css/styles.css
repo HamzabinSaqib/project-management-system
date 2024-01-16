@@ -2,8 +2,44 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.welcome-heading {
+    font-size: 28px !important;
+}
+
+.project-heading {
+    font-size: 22px !important;
+}
+
 .register-heading {
     font-size: 24px !important;
+}
+
+.heading {
+    font-size: 30px !important;
+}
+
+.buttons {
+    font-weight: 500;
+    font-size: 24px;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.buttons-flex {
+    padding: 0px 50px !important;
+    transition: padding 0.2s ease-in-out;
+}
+
+.buttons-flex:hover {
+    padding: 0px 30px !important;
+}
+
+.login-button-home {
+    border: 2px solid rgb(99,102,241) !important;
+}
+
+.signup-button-home {
+    border: 2px solid rgb(99,102,241) !important;
 }
 
 .login-button {
@@ -39,14 +75,6 @@
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
-}
-
-.welcome-heading {
-    font-size: 28px !important;
-}
-
-.project-heading {
-    font-size: 22px !important;
 }
 
 .no-projects-image {

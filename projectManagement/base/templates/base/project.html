@@ -1,20 +1,87 @@
-{% extends 'navbar.html' %} {% block content %}
+{% extends 'main.html' %} {% block content %}
 
-<div>
-  <h2> {{project.projName}} </h2>
-  <h3> {{project.projDesc}} </h3>
-  <h4> Started: {{project.startDate}} </h4>
-  <h4> Due On: {{project.dueDate}} </h4>
-  <h4> Status: {{project.projStatus}} </h4>
-  <h4> Manager: {{project.manager}} </h4>
-  <hr/>
-  <a href="{% url 'base:manage_Project' project.pk %}">Manage Project</a>
-  <br><br>
-  <form action="{% url 'base:del_project' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
-    {% csrf_token %}
-    <button type="submit">Delete Project</button>
-  </form>
-</div>
+{% load static %}
+
+<head>
+  <title>{% block title %}{{project.projName}}{% endblock %}</title>
+  <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container px-5 py-24 pt-5 mx-auto flex flex-wrap items-center">
+    <div class="bg-black rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0">
+      <div class="h-0.5 w-64 bg-indigo-500 rounded-full mx-auto mb-10"></div>
+      <div class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex items-center">
+        <div class="projects-image mt-5 mb-5"></div>
+        <h1 class="project-heading text-center text-gray-300 text-lg font-medium title-font mt-4 mb-4 ml-5">PROJECTS</h1>
+        <img id="right-arrow" src="{% static 'images/right_arrow.png' %}" alt="Right Arrow" class="mt-4 mb-4 w-7 h-7 ml-4">
+        <h2 class="project-heading text-center text-gray-300 text-lg font-medium title-font mt-4 mb-4 ml-4">{{project.projName}}</h2>
+      </div>
+      <section class="lg:w-5/6 md:w-5/6 md:ml-auto md:mr-auto mb-5 flex-1 items-center">
+        <div class="w-full rounded-lg mb-10 flex-col items-center bordered-div">
+          <h3 class="text-lg text-left ml-10 mr-8 text-gray-300 font-medium title-font field-name mt-10 mb-10 flex-grow w-4/6 wrap-text">{{project.projDesc}}</h3>
+          <div class="flex items-centre ml-10">
+            <img id="start-date-icon" src="{% static 'images/start_date.png' %}" alt="Start Date Icon" class="mt-4 mb-4 w-7 h-7">
+            <h4 class="text-left ml-3 mr-8 text-gray-300 font-medium title-font field-name mt-5 mb-4">
+              {% if project.startDate %} {{project.startDate}}
+              {% else %} - - -
+              {% endif %}
+            </h4>
+            <img id="end-date-icon" src="{% static 'images/end_date.png' %}" alt="End Date Icon" class="mt-4 mb-4 w-7 h-7 ml-2">
+            <h5 class="text-left ml-3 mr-8 text-gray-300 font-medium title-font field-name mt-5 mb-4">
+              {% if project.endDate %} {{project.endDate}}
+              {% else %} - - -
+              {% endif %}
+            </h5>
+          </div>
+          {% if not project.endDate %}
+          <div class="flex items-centre ml-10">
+            <img id="due-date-icon" src="{% static 'images/due_date.png' %}" alt="Due Date Icon" class="mt-4 mb-4 w-7 h-7">
+            <h6 class="text-left ml-3 mr-8 text-gray-300 font-medium title-font field-name mt-5 mb-4 flex-grow">
+              {% if project.dueDate %} {{project.dueDate}}
+              {% else %} OPEN
+              {% endif %}
+            </h6>
+          </div>
+          {% endif %}
+          <div class="flex items-centre ml-10">
+            <h7 class="text-left mr-2 text-gray-300 font-medium title-font field-name mt-4 mb-4">Status:</h7>
+            <h8 class="text-left ml-2 mr-8 {% if project.projStatus == 'Completed' %}
+                                              text-green
+                                            {% elif project.projStatus == 'Cancelled' %}
+                                              text-red-500
+                                            {% elif project.projStatus == 'In Progress' %}
+                                              text-yellow-500
+                                            {% elif project.projStatus == 'On Hold' %}
+                                              text-blue-500
+                                            {% else %}
+                                              text-red-500
+                                            {% endif %} font-medium title-font field-name mt-4 mb-4 flex-grow"> 
+              {{project.projStatus}} 
+            </h8>
+          </div>
+          <div class="flex items-centre ml-10">
+            <div class="flex inline-flex items-centre rounded-lg border border-indigo-500 mr-5 mt-4 mb-6">
+              <img id="manager-icon" src="{% static 'images/manager.png' %}" alt="Manager Icon" class="mt-4 mb-4 w-7 h-7 ml-4">
+              <h7 class="text-left ml-5 mr-5 text-gray-300 font-medium title-font field-name mt-5 mb-4 flex-grow">{{project.manager}} </h7>
+            </div>
+            <button type="button" class="manage-project mt-7 mb-7 ml-10" aria-label="Manage Project" onclick="handleManageClick()"></button>
+            <form action="{% url 'base:del_project' project.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
+              {% csrf_token %}
+              <button type="submit" class="delete-project mt-6 mb-6 ml-10" aria-label="Delete Project"></button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function handleManageClick() {
+      window.location.href = "{% url 'base:manage_Project' project.pk %}";
+    }
+  </script>
+</body>
+
 
 
 {% endblock %}

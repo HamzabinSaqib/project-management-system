@@ -18,6 +18,11 @@
     font-size: 30px !important;
 }
 
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
 .buttons {
     font-weight: 500;
     font-size: 24px;
@@ -72,11 +77,6 @@
     color: rgba(115, 243, 255, 0.7);
 }
 
-@keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
-
 .no-projects-image {
     background: url('/static/images/no_projects.png');
     background-size: cover;
@@ -117,6 +117,39 @@
     background-size: cover;
 }
 
+.delete-project {
+    background: url('/static/images/delete.png');
+    background-size: cover;
+    width: 40px; 
+    height: 40px;
+    animation: fadeIn 1.5s;
+    transition: background 0.3s ease;
+}
+
+.delete-project:hover {
+    background: url('/static/images/delete_hover.png');
+    background-size: cover;
+}
+
+.manage-project {
+    background: url('/static/images/manage.png');
+    background-size: cover;
+    width: 35px; 
+    height: 35px;
+    animation: fadeIn 1.5s;
+    transition: background 0.3s ease;
+}
+
+.manage-project:hover {
+    background: url('/static/images/manage_hover.png');
+    background-size: cover;
+}
+
+.wrap-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .alert-success {
     color: rgb(90, 255, 167);
 }
@@ -139,6 +172,10 @@
 
 .white-bordered-div:hover h2 {
     opacity: 1;
+}
+
+.text-green {
+    color: #00ff00e7;
 }
 
 .low-opacity {

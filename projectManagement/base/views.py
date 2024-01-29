@@ -53,7 +53,7 @@ def create_project(request):
             projStatus = status,
         )
         return redirect('base:home')
-    return render(request, "base/project_creation.html")
+    return render(request, "base/create_project.html")
 
 #! =================================================== DELETE PROJECT ===================================================
 
@@ -82,9 +82,9 @@ def manage_project(request, pk):
         'project': project,
         'form': form,
     }
-    return render(request, 'base/manage_proj.html', context)
+    return render(request, 'base/manage_project.html', context)
 
 
 
-def create_Task(request, pk):
+def create_task(request, pk):
     pass
